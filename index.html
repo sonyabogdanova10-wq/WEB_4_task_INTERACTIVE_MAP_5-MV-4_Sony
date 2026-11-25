@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b12">
+  <title>NIGHT CITY REALTY | Найди свой новый дом</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scanlines"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Night City Realty home">
+      <span class="brand-mark">NC<span>+</span></span>
+      <span class="brand-name">NIGHT CITY <b>REALTY</b><small>Живи ИНАЧЕ. Оставайся СОБОЙ.</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="#explore" class="active">Карта города</a>
+      <a href="#listings">Объекты</a>
+      <a href="#how">Как это работает</a>
+      <a href="#bookings">Мои брони</a>
+    </nav>
+    <button class="profile-btn" id="profileBtn"><span class="status-dot"></span> ID НЕТРАННЕРА <span class="profile-arrow">↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> НАЙТ-СИТИ / СЕТЬ КВАРТИР <span class="live-tag">● В ЭФИРЕ</span></div>
+        <h1>ТВОЙ ГОРОД.<br><span>ТВОЯ ТЕРРИТОРИЯ.</span></h1>
+        <p>Найди место, которое станет твоим новым домом: От тихих квартир в Пустошах до премиальных апартаментов под Тихим Океаном!</p>
+        <a class="hero-link" href="#explore">НАЙДИ СВОЁ МЕСТО <span>↓</span></a>
+      </div>
+      <div class="hero-side">
+        <div class="hero-coordinate">NC // 2077.11<br><span>34°03' N — 118°15' W</span></div>
+        <div class="hero-stamp">ТВОЯ<br><b>СЛЕДУЮЩАЯ</b><br>ГЛАВА<span>®</span></div>
+        <div class="hero-bottom">НЕТ ПЛОХИХ ДОМОВ.<br>ЕСТЬ ПЛОХИЕ РЕШЕНИЯ.<br>МЫ ПОМОЖЕМ ТЕБЕ ПРИНЯТЬ ПРАВИЛЬНОЕ.</div>
+      </div>
+    </section>
+
+    <section class="search-strip" id="explore">
+      <div class="search-heading"><span class="tiny-label">01 / ФИЛЬТРАЦИЯ</span><h2>ГДЕ БУДЕШЬ ЖИТЬ?</h2></div>
+      <label class="search-field"><span>⌕</span><input id="searchInput" type="search" placeholder="Район, объект или ключевое слово..."></label>
+      <label class="select-field"><span>РАЙОН</span><select id="districtFilter"><option value="all">Все районы</option><option>Уотсон</option><option>Уэстбрук</option><option>Городской центр</option><option>Хейвуд</option><option>Пасифика</option></select></label>
+      <label class="select-field"><span>ТИП ЖИЛЬЯ</span><select id="typeFilter"><option value="all">Любой тип</option><option value="Апартаменты">Апартаменты</option><option value="Пентхаус">Пентхаус</option><option value="Лофт">Лофт</option><option value="Капсула">Капсула</option></select></label>
+<label class="select-field"><span>ГОСТЕЙ</span><select id="guestFilter"><option value="all">Любое количество</option><option value="1">1 и более</option><option value="2">2 и более</option><option value="3">3 и более</option><option value="4">4 и более</option></select></label>
+<label class="price-field"><span>МАКС. ЦЕНА</span><input type="range" id="priceFilter" min="0" max="10500" value="10500" step="50"><span id="priceValue">€450</span></label>
+    </section>
+
+    <section class="explore-layout">
+      <div class="map-panel">
+        <div class="panel-top"><div><span class="tiny-label">02 / КАРТА ГОРОДА</span><h2>ИНТЕРАКТИВНАЯ КАРТА</h2></div><span class="map-live"><i></i> СИГНАЛ СТАБИЛЕН</span></div>
+        <div class="map-wrap">
+          <div class="map-viewport" id="mapViewport">
+            <img class="map-image" id="mapImage" src="images/NightCityMap.webp" alt="Карта районов Найт-Сити" draggable="false">
+            <div class="map-pins-layer" id="mapPins"></div>
+          </div>
+          <div class="map-controls"><button id="zoomIn" aria-label="Увеличить карту">+</button><button id="zoomOut" aria-label="Уменьшить карту">−</button><button id="resetMap" aria-label="Сбросить карту">⌖</button></div>
+          <div class="map-legend"><span><i class="legend-dot available"></i> Доступно</span><span><i class="legend-dot premium"></i> Премиум</span><span><i class="legend-dot selected"></i> Выбрано</span></div>
+        </div>
+        <div class="map-footer"><span>ПОКАЗАНО ОБЪЕКТОВ: <b id="mapCount">06</b></span><span>КООРДИНАТЫ УСЛОВНЫЕ <b>●</b></span></div>
+      </div>
+
+      <div class="side-columns">
+        <aside class="featured-panel">
+          <div class="panel-top"><div><span class="tiny-label">03 / СПИСОК АПАРТАМЕНТОВ</span><h2>ВЫБОР ЖИЛЬЯ</h2></div><span class="feed-count" id="feedCount">06 ITEMS</span></div>
+          <div class="listing-list" id="listingList"></div>
+        </aside>
+        <aside class="detail-panel" id="detailPanel">
+          <div class="panel-top"><div><span class="tiny-label">04 / ДАННЫЕ ПО ОБЪЕКТУ</span><h2 id="detailPanelTitle">ОБЪЕКТ НЕ ВЫБРАН</h2></div></div>
+          <div class="detail-panel-body" id="detailPanelBody">
+            <div class="detail-empty"><span class="empty-mark">—</span>НИЧЕГО НЕ ВЫБРАНО<br>Отметь объект в списке или на карте — здесь появится информация о жилье.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="how-section" id="how">
+      <div><span class="tiny-label">05 / ПРОТОКОЛ БРОНИРОВАНИЯ</span><h2>ТРИ ШАГА ДО НОВОЙ ЖИЗНИ</h2></div>
+      <div class="steps">
+        <article><span>01</span><h3>ВЫБЕРИ РАЙОН</h3><p>Исследуй карту и найди локацию с нужным уровнем комфорта.</p></article>
+        <article><span>02</span><h3>ОТКРОЙ ОБЪЕКТ</h3><p>Изучи фотографии, удобства, цену и доступность жилья.</p></article>
+        <article><span>03</span><h3>ЗАБРОНИРУЙ</h3><p>Укажи даты, количество гостей и подтверди свой запрос.</p></article>
+      </div>
+    </section>
+
+    <section class="bookings-section" id="bookings">
+      <div><span class="tiny-label">06 / БУФЕР ПАМЯТИ</span><h2>МОИ БРОНИРОВАНИЯ</h2></div>
+      <div class="bookings-list" id="bookingsList">
+        <div class="bookings-empty">В сессии ещё нет броней.<br>Выбери объект и оформи запрос на бронирование — он появится здесь.</div>
+      </div>
+      <p class="bookings-note">Учебное демо: Данные хранятся только в рамках текущей сессии (пока страница открыта).</p>
+<button class="btn-reset-demo" id="resetDemoBtn">СБРОСИТЬ ДЕМО</button>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">NC<span>+</span></span><span class="brand-name">NIGHT CITY <b>REALTY</b><small>Живи ИНАЧЕ. Оставайся СОБОЙ.</small></span></a><span>© 2077 NIGHT CITY REALTY // ФАН-ПРОЕКТ</span><span>НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ ПРОЕКТОМ CD PROJEKT RED</span></footer>
+
+  
+
+  <div class="modal-backdrop" id="bookingModal" aria-hidden="true">
+    <section class="modal booking-modal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+      <button class="close-modal" data-close="bookingModal" aria-label="Закрыть">×</button>
+      <span class="tiny-label">NCR / ЗАЩИЩЁННЫЙ КАНАЛ БРОНИРОВАНИЯ</span>
+      <h2 id="bookingTitle">ЗАБРОНИРОВАТЬ<br><span>СВОЮ ТОЧКУ СОХРАНЕНИЯ</span></h2>
+      <p class="booking-property" id="bookingProperty"></p>
+      <form id="bookingForm">
+        <div class="form-grid">
+          <label>ЗАЕЗД<input type="date" id="checkIn" required></label>
+          <label>ВЫЕЗД<input type="date" id="checkOut" required></label>
+          <label>ГОСТИ<select id="guests"><option value="1">1 гость</option><option value="2" selected>2 гостя</option><option value="3">3 гостя</option><option value="4">4 гостя</option></select></label>
+          <label>ИМЯ БРОНИ<input id="guestName" type="text" placeholder="Как к вам обращаться?" required maxlength="40"></label>
+        </div>
+        <div class="price-summary"><span id="nightsLabel">Выберите даты</span><strong id="totalPrice">€—</strong></div>
+        <button class="primary-btn full-btn" type="submit">ПОДТВЕРДИТЬ БРОНЬ <span>↗</span></button>
+        <p class="form-note">Демонстрационная бронь. Оплата и реальные персональные данные не запрашиваются.</p>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="successModal" aria-hidden="true">
+    <section class="modal success-modal" role="dialog" aria-modal="true">
+      <button class="close-modal" data-close="successModal" aria-label="Закрыть">×</button>
+      <div class="success-icon">✓</div><span class="tiny-label">ОПЕРАЦИЯ ЗАВЕРШЕНА</span><h2>ТВОЁ МЕСТО<br><span>ЖДЁТ ТЕБЯ.</span></h2>
+      <p id="successText"></p><div class="booking-code" id="bookingCode"></div><button class="primary-btn full-btn" data-close="successModal">ПРИНЯТО. ДО ВСТРЕЧИ В НАЙТ-СИТИ</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
